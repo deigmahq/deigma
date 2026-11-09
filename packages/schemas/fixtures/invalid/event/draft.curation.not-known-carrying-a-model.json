@@ -1,0 +1,38 @@
+{
+  "event_id": "0191b7a1-0002-7aaa-8bbb-000000000002",
+  "schema_version": "2.4",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "source": "wedge_vscode",
+  "origin": "live",
+  "occurred_at": "2026-08-01T10:20:00Z",
+  "sent_at": "2026-08-01T10:20:05Z",
+  "tool": {
+    "name": "vscode",
+    "version": "1.103.0"
+  },
+  "model": {
+    "known": false,
+    "family": "claude",
+    "name": "claude-opus-5",
+    "generation_tag": "claude-5"
+  },
+  "type": "draft.curation",
+  "payload": {
+    "draft_hash": "3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a",
+    "final_hash": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
+    "kc_value": 0.87,
+    "kc_algo_version": "myers-token-1.0",
+    "size_draft": 240,
+    "size_final": 268,
+    "t_validation_ms": 42000,
+    "n_scroll": 6,
+    "n_edits": 3,
+    "edit_kind": "light",
+    "carrier_hint": {
+      "provider": "github",
+      "repo_id": 812345678,
+      "branch": "feat/ingest",
+      "pr_number": 42
+    }
+  }
+}

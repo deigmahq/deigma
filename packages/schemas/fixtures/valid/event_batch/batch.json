@@ -1,0 +1,251 @@
+{
+  "events": [
+    {
+      "event_id": "0191b7a0-5c3e-7d2a-9f10-3b2c1d0e9f81",
+      "schema_version": "2.2",
+      "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+      "source": "connector_github",
+      "origin": "live",
+      "occurred_at": "2026-07-21T14:03:12Z",
+      "sent_at": "2026-07-21T14:03:15Z",
+      "tool": {
+        "name": "github-app",
+        "version": "1.0.0"
+      },
+      "type": "carrier.event",
+      "payload": {
+        "kind": "merged",
+        "carrier": {
+          "provider": "github",
+          "kind": "pr",
+          "repo_id": 812345678,
+          "pr_number": 42
+        },
+        "actor_github_user_id": 5551212,
+        "actor_is_owner": true,
+        "commit": null,
+        "pr": {
+          "head_sha": "9fceb02d0ae598e95dc970b74767f19372d61af8",
+          "base_ref": "main",
+          "additions": 120,
+          "deletions": 33,
+          "changed_files": 4,
+          "changed_paths": [
+            "src/api/ingest.ts",
+            "src/api/ingest.test.ts",
+            "README.md",
+            "package.json"
+          ],
+          "language": "TypeScript",
+          "ticket_ref": null
+        },
+        "merge_method": "squash",
+        "ci_check_name": null,
+        "reverted_by_pr_number": null
+      }
+    },
+    {
+      "event_id": "0191b7a0-6d4f-7e3b-8a21-4c3d2e1f0a92",
+      "schema_version": "2.2",
+      "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+      "source": "connector_github",
+      "origin": "live",
+      "occurred_at": "2026-07-23T09:41:00+02:00",
+      "sent_at": "2026-07-23T09:41:02+02:00",
+      "tool": {
+        "name": "github-app",
+        "version": "1.0.0"
+      },
+      "type": "carrier.event",
+      "model": {
+        "family": "n/a",
+        "name": "n/a",
+        "generation_tag": "2026H2"
+      },
+      "payload": {
+        "kind": "reverted",
+        "carrier": {
+          "provider": "github",
+          "kind": "pr",
+          "repo_id": 812345678,
+          "pr_number": 42
+        },
+        "actor_github_user_id": 5551212,
+        "actor_is_owner": true,
+        "commit": null,
+        "pr": {
+          "head_sha": "9fceb02",
+          "base_ref": "main",
+          "additions": 120,
+          "deletions": 33,
+          "changed_files": 4,
+          "changed_paths": [
+            "src/api/ingest.ts"
+          ],
+          "language": null,
+          "ticket_ref": "PROJ-118"
+        },
+        "merge_method": null,
+        "ci_check_name": null,
+        "reverted_by_pr_number": 47
+      }
+    },
+    {
+      "event_id": "0191b7a1-0002-7aaa-8bbb-000000000002",
+      "schema_version": "2.2",
+      "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+      "source": "wedge_vscode",
+      "origin": "live",
+      "occurred_at": "2026-08-01T10:20:00Z",
+      "sent_at": "2026-08-01T10:20:05Z",
+      "tool": {
+        "name": "vscode",
+        "version": "1.103.0"
+      },
+      "model": {
+        "family": "claude",
+        "name": "claude-sonnet-5",
+        "generation_tag": "2026H2"
+      },
+      "type": "draft.curation",
+      "payload": {
+        "draft_hash": "3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a",
+        "final_hash": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
+        "kc_value": 0.87,
+        "kc_algo_version": "myers-token-1.0",
+        "size_draft": 240,
+        "size_final": 268,
+        "t_validation_ms": 42000,
+        "n_scroll": 6,
+        "n_edits": 3,
+        "edit_kind": "light",
+        "carrier_hint": {
+          "provider": "github",
+          "repo_id": 812345678,
+          "branch": "feat/ingest",
+          "pr_number": 42
+        }
+      }
+    },
+    {
+      "event_id": "0191b7a1-0003-7aaa-8bbb-000000000003",
+      "schema_version": "2.2",
+      "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+      "source": "wedge_cursor",
+      "origin": "live",
+      "occurred_at": "2026-08-02T08:00:00Z",
+      "sent_at": "2026-08-02T08:00:01Z",
+      "tool": {
+        "name": "cursor",
+        "version": "1.4.2"
+      },
+      "model": {
+        "family": "gpt",
+        "name": "gpt-5",
+        "generation_tag": "2026H2"
+      },
+      "type": "error.interception",
+      "payload": {
+        "draft_hash": "3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a",
+        "fix_hash": "9f8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6c5b4a39281706f5e4d3c2b1a0",
+        "t_since_accept_ms": 5400000,
+        "kc_to_fix": 0.72,
+        "kc_algo_version": "myers-token-1.0",
+        "size_fix": 640,
+        "same_region": true,
+        "carrier_hint": {
+          "provider": "github",
+          "repo_id": 812345678,
+          "branch": "feat/PROJ-113-retry",
+          "pr_number": 42
+        },
+        "defect_confirmed_by": null,
+        "defect_kind": null,
+        "fixed_in_same_episode": null,
+        "ifix_candidate": null
+      }
+    },
+    {
+      "event_id": "0191b7a1-0001-7aaa-8bbb-000000000001",
+      "schema_version": "2.2",
+      "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+      "source": "wedge_cli",
+      "origin": "live",
+      "occurred_at": "2026-08-01T10:15:30.250Z",
+      "sent_at": "2026-08-01T10:15:31Z",
+      "tool": {
+        "name": "deigma-cli",
+        "version": "0.3.1"
+      },
+      "model": {
+        "family": "claude",
+        "name": "claude-sonnet-5",
+        "generation_tag": "2026H2"
+      },
+      "type": "session.summary",
+      "payload": {
+        "session_id": "s_01J4XYZ",
+        "duration_ms": 1830000,
+        "requests": 14,
+        "iterations": 5,
+        "tool_calls": {
+          "read_file": 22,
+          "edit_file": 9,
+          "run_tests": 3
+        },
+        "tokens_in": 48210,
+        "tokens_out": 9120,
+        "prompt_features": [
+          {
+            "h_struct": 3.21,
+            "content_mass": 0.72,
+            "length": 812,
+            "categories": [
+              "spec",
+              "constraints"
+            ]
+          },
+          {
+            "h_struct": 2.1,
+            "content_mass": 0.31,
+            "length": 140,
+            "categories": [
+              "followup"
+            ]
+          }
+        ],
+        "env_features": {
+          "e_definition_version": "E-1.0",
+          "mcp_tool_diversity": 0.6,
+          "mcp_tool_calls": 34,
+          "project_instructions_loaded": true,
+          "reusable_skill_calls": 2
+        },
+        "carrier_hint": {
+          "provider": "github",
+          "repo_id": 812345678,
+          "branch": "feat/ingest"
+        }
+      }
+    },
+    {
+      "event_id": "0191b7a1-0004-7aaa-8bbb-000000000004",
+      "schema_version": "2.2",
+      "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+      "source": "wedge_vscode",
+      "origin": "live",
+      "occurred_at": "2026-08-02T08:05:00Z",
+      "sent_at": "2026-08-02T08:05:00Z",
+      "tool": {
+        "name": "vscode",
+        "version": "1.103.0"
+      },
+      "type": "wedge.status",
+      "payload": {
+        "kind": "heartbeat",
+        "wedge_version": "0.3.1",
+        "error_code": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "event_id": "6c1d2e3f-4a5b-5c6d-8e7f-8091a2b3c4d5",
+  "schema_version": "2.5",
+  "user_id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+  "source": "wedge_cli",
+  "origin": "backfill",
+  "occurred_at": "2026-02-11T14:03:00Z",
+  "sent_at": "2026-10-10T12:00:00Z",
+  "tool": {
+    "name": "deigma-cli",
+    "version": "0.3.0"
+  },
+  "type": "prompt.history",
+  "model": {
+    "known": false,
+    "family": "unknown",
+    "name": "unknown",
+    "generation_tag": "unknown"
+  },
+  "payload": {
+    "transcript_id": "1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f",
+    "grouping": "session",
+    "duration_ms": 2700000,
+    "project_hash": "/home/dev/repo",
+    "repo_id": 123456,
+    "features": {
+      "rules_version": "ph-1.0",
+      "typed_prompts": 9,
+      "slash_commands": [
+        {
+          "name": "compact",
+          "count": 1
+        }
+      ],
+      "shell_commands": 0,
+      "pastes": {
+        "text_small": 2,
+        "text_medium": 1,
+        "text_large": 0,
+        "text_unknown": 1,
+        "images": 0
+      },
+      "prompt_length": {
+        "short": 5,
+        "medium": 3,
+        "long": 1
+      },
+      "gap_seconds": {
+        "p50": 95,
+        "p90": 610
+      },
+      "corrective_followups": 2
+    }
+  }
+}

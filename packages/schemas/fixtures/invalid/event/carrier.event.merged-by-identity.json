@@ -1,0 +1,45 @@
+{
+  "event_id": "0191b7a0-5c3e-7d2a-9f10-3b2c1d0e9f82",
+  "schema_version": "2.5",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "source": "connector_github",
+  "origin": "live",
+  "occurred_at": "2026-07-21T14:03:12Z",
+  "sent_at": "2026-07-21T14:03:15Z",
+  "tool": {
+    "name": "github-app",
+    "version": "1.0.0"
+  },
+  "type": "carrier.event",
+  "payload": {
+    "kind": "merged",
+    "carrier": {
+      "provider": "github",
+      "kind": "pr",
+      "repo_id": 812345678,
+      "pr_number": 42
+    },
+    "actor_github_user_id": null,
+    "actor_is_owner": false,
+    "commit": null,
+    "pr": {
+      "head_sha": "9fceb02d0ae598e95dc970b74767f19372d61af8",
+      "base_ref": "main",
+      "additions": 120,
+      "deletions": 33,
+      "changed_files": 4,
+      "changed_paths": [
+        "src/api/ingest.ts",
+        "src/api/ingest.test.ts",
+        "README.md",
+        "package.json"
+      ],
+      "language": "TypeScript",
+      "ticket_ref": null
+    },
+    "merge_method": "squash",
+    "ci_check_name": null,
+    "reverted_by_pr_number": null,
+    "merged_by": "octocat"
+  }
+}

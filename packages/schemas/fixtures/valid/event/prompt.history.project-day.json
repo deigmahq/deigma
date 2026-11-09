@@ -1,0 +1,29 @@
+{
+  "event_id": "7d2e3f4a-5b6c-5d7e-8f80-91a2b3c4d5e6",
+  "schema_version": "2.5",
+  "user_id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+  "source": "wedge_cli",
+  "origin": "backfill",
+  "occurred_at": "2026-01-15T08:41:00Z",
+  "sent_at": "2026-10-10T12:00:00Z",
+  "tool": { "name": "deigma-cli", "version": "0.3.0" },
+  "type": "prompt.history",
+  "model": { "known": false, "family": "unknown", "name": "unknown", "generation_tag": "unknown" },
+  "payload": {
+    "transcript_id": null,
+    "grouping": "project_day",
+    "duration_ms": 0,
+    "project_hash": "",
+    "repo_id": null,
+    "features": {
+      "rules_version": "ph-1.0",
+      "typed_prompts": 1,
+      "slash_commands": [],
+      "shell_commands": 0,
+      "pastes": { "text_small": 0, "text_medium": 0, "text_large": 0, "text_unknown": 0, "images": 0 },
+      "prompt_length": { "short": 1, "medium": 0, "long": 0 },
+      "gap_seconds": null,
+      "corrective_followups": 0
+    }
+  }
+}

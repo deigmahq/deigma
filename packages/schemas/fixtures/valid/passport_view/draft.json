@@ -1,0 +1,1326 @@
+{
+  "status": "calibrating",
+  "snapshot": {
+    "snapshot_id": "636cd1e6-931c-56e1-91c7-6afe7dd528f7",
+    "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+    "created_at": "2026-08-18T12:00:00Z",
+    "status": "calibrating",
+    "provenance": {
+      "engine_version": "7.0.0",
+      "classifier_version": "cls-3.0",
+      "r_definition_version": "R-7.0",
+      "population_digest": "46af8550c9ca90c4ea5f55c4e8a7cd0ce5406bf649c4a9e7f128d6fb5bdf7e49",
+      "outcome_definition_version": "outcome-2.0",
+      "outcome_definition_mix": {
+        "outcome-2.0-flat-ci": 20
+      },
+      "reader_mix": {
+        "cc-reader-2": 9,
+        "codex-reader-1": 3
+      },
+      "config_hash": "cc46031958f2540494ac414b3a0a3342cda7f2f572fa4d7e0e573386dd729924",
+      "config": {
+        "ci_record_retention_days": 365,
+        "commit_run_daily_cap": true,
+        "commit_run_idle_gap_hours": 4.0,
+        "commit_run_rewrite_thresholds": [
+          0.1,
+          0.3,
+          0.7
+        ],
+        "commit_run_w1_top_censor": true,
+        "config_version": "config-1.0",
+        "cutoff_days": 182.0,
+        "date_anchor_tolerance_days": 3,
+        "half_life_days": 42.0,
+        "mode_kappa": null,
+        "outcome_definition_version": "outcome-2.0",
+        "pr_sub_episode_gap_days": 7.0,
+        "practice_ci90_max": 20,
+        "practice_delta_min": 2,
+        "practice_level_bands": [
+          30,
+          45,
+          60
+        ],
+        "practice_max_landings_per_day": 12,
+        "practice_max_sessions_per_day": 12,
+        "practice_min_days": 7,
+        "practice_min_items": 4,
+        "practice_min_landings": 20,
+        "practice_min_occasions": 5,
+        "practice_min_repository_occasions": 1,
+        "practice_min_sessions": 20,
+        "practice_not_expressible": [
+          "codex:independent_review",
+          "codex:security_review"
+        ],
+        "practice_preliminary_landings": 5,
+        "practice_preliminary_sessions": 5,
+        "practice_prior": [
+          1,
+          1
+        ],
+        "practice_resamples": 1000,
+        "practice_seed": 20261017,
+        "practice_small_change_lines": 400,
+        "r_ci90_max": 0.3,
+        "r_clip": [
+          0.01,
+          0.99
+        ],
+        "r_definition_version": "R-7.0",
+        "r_expected_observations": 45,
+        "r_min_observations": 5,
+        "r_min_repo_year_others": 5,
+        "r_min_reviewer_others": 10,
+        "r_mu": 0.6414,
+        "r_order_effects": [
+          -0.1278,
+          -0.0518,
+          -0.0092,
+          -0.0194
+        ],
+        "r_tau": 1.6227,
+        "r_typical_rate": 0.8975,
+        "r_window_days": 182.0,
+        "session_idle_gap_hours": 4.0,
+        "survival_rewrite_threshold": 0.3,
+        "window_final_basis": "T23, second source, calibrated 2026-09-10 (scripts/calibrate-window): 24 public repositories, 6 languages, 14 682 landings watched a full 30 days, 93 % of landing timestamps a server witness. Reverts: 71.9 % by day 3, 95.5 % [90, 98] by day 14, 28.1 % [21, 36] after day 3, median 0.74 d. Hotfixes: 80.5 % by day 14, p90 21.7 d. Days 11-14 caught none of the 89 reverts in that sample — and the window is NOT shortened to it, because the sample is projects with review and CI where somebody else catches a failure fast. A user without CI has nobody catching them. Hotfixes past the window are caught by survival at 30 and 90 days (§11.4).",
+        "window_final_days": 14
+      },
+      "rng_seed": 0,
+      "observations_digest": "102d650c5f4e0e5b6d16943a9c30910fd2520a8a7f36a66d2b6373bd238e53eb"
+    },
+    "survival": {
+      "self_witnessed": [],
+      "witnessed": [
+        {
+          "days": 14,
+          "standing": 0,
+          "of": 1
+        },
+        {
+          "days": 30,
+          "standing": 0,
+          "of": 1
+        }
+      ],
+      "median_prompts_to_landing": null
+    },
+    "volumes": {
+      "n_carriers": 20,
+      "n_episodes": 20,
+      "n_outcomes_provisional": 16,
+      "n_outcomes_pending": 3,
+      "n_outcomes_final": 13,
+      "outcome_categories": {
+        "0": 2,
+        "1": 1,
+        "2": 1,
+        "3": 8
+      },
+      "outcome_ranges": [
+        {
+          "y_lo": 1,
+          "y_hi": 3,
+          "n": 1
+        }
+      ],
+      "n_outcomes_ungraded": 1,
+      "n_repositories": 4,
+      "history_from": "2026-06-22T09:10:00Z",
+      "history_to": "2026-08-17T15:20:00Z"
+    },
+    "history": {
+      "weeks": [
+        {
+          "week_start": "2026-02-23",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-03-02",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-03-09",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-03-16",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-03-23",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-03-30",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-04-06",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-04-13",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-04-20",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-04-27",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-05-04",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-05-11",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-05-18",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-05-25",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-06-01",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-06-08",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-06-15",
+          "pr": 0,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 0,
+          "lines_changed": 0,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-06-22",
+          "pr": 2,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 2,
+          "lines_changed": 274,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-06-29",
+          "pr": 2,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 2,
+          "lines_changed": 637,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-07-06",
+          "pr": 2,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 2,
+          "lines_changed": 208,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-07-13",
+          "pr": 4,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 4,
+          "lines_changed": 401,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-07-20",
+          "pr": 1,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 1,
+          "lines_changed": 315,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-07-27",
+          "pr": 2,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 2,
+          "lines_changed": 153,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-08-03",
+          "pr": 2,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 2,
+          "lines_changed": 222,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-08-10",
+          "pr": 3,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 3,
+          "lines_changed": 371,
+          "with_ai": 0
+        },
+        {
+          "week_start": "2026-08-17",
+          "pr": 2,
+          "commit_run": 0,
+          "release": 0,
+          "episodes": 2,
+          "lines_changed": 295,
+          "with_ai": 0
+        }
+      ],
+      "landings": [
+        {
+          "week": 17,
+          "lines": 250,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "accepted_by_other",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-06-23",
+          "kind": "pr",
+          "number": 31,
+          "final": true,
+          "grade": {
+            "y_lo": 1,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 17,
+          "lines": 24,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-06-26",
+          "kind": "pr",
+          "number": 33,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 18,
+          "lines": 570,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345679",
+          "landed_at": "2026-07-02",
+          "kind": "pr",
+          "number": 12,
+          "final": true,
+          "grade": {
+            "y_lo": 1,
+            "y_hi": 1
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 18,
+          "lines": 67,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-07-03",
+          "kind": "pr",
+          "number": 35,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 19,
+          "lines": 177,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-07-12",
+          "kind": "pr",
+          "number": 37,
+          "final": true,
+          "grade": {
+            "y_lo": 0,
+            "y_hi": 0
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 19,
+          "lines": 31,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345680",
+          "landed_at": "2026-07-06",
+          "kind": "pr",
+          "number": 8,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 20,
+          "lines": 153,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-07-21",
+          "kind": "pr",
+          "number": 42,
+          "final": true,
+          "grade": {
+            "y_lo": 2,
+            "y_hi": 2
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 20,
+          "lines": 98,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": true,
+          "repository": "github:812345678",
+          "landed_at": "2026-07-17",
+          "kind": "pr",
+          "number": 40,
+          "final": true,
+          "grade": {
+            "y_lo": 0,
+            "y_hi": 0
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 20,
+          "lines": 98,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-07-17",
+          "kind": "pr",
+          "number": 41,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 20,
+          "lines": 52,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "accepted_by_other",
+          "reverted": false,
+          "repository": "github:812345679",
+          "landed_at": "2026-07-14",
+          "kind": "pr",
+          "number": 14,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 21,
+          "lines": 315,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345680",
+          "landed_at": "2026-07-24",
+          "kind": "pr",
+          "number": 9,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 22,
+          "lines": 99,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345679",
+          "landed_at": "2026-07-29",
+          "kind": "pr",
+          "number": 16,
+          "final": true,
+          "grade": null,
+          "mode": "unattributed"
+        },
+        {
+          "week": 22,
+          "lines": 54,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-07-30",
+          "kind": "pr",
+          "number": 44,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 23,
+          "lines": 150,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345679",
+          "landed_at": "2026-08-04",
+          "kind": "pr",
+          "number": 17,
+          "final": true,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 23,
+          "lines": 72,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345680",
+          "landed_at": "2026-08-07",
+          "kind": "pr",
+          "number": 11,
+          "final": false,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 24,
+          "lines": 270,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": true,
+          "repository": "github:812345678",
+          "landed_at": "2026-08-11",
+          "kind": "pr",
+          "number": 46,
+          "final": false,
+          "grade": {
+            "y_lo": 0,
+            "y_hi": 0
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 24,
+          "lines": 87,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345679",
+          "landed_at": "2026-08-14",
+          "kind": "pr",
+          "number": 19,
+          "final": false,
+          "grade": {
+            "y_lo": 3,
+            "y_hi": 3
+          },
+          "mode": "unattributed"
+        },
+        {
+          "week": 24,
+          "lines": 14,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345678",
+          "landed_at": "2026-08-17",
+          "kind": "pr",
+          "number": 48,
+          "final": false,
+          "grade": null,
+          "mode": "unattributed"
+        },
+        {
+          "week": 25,
+          "lines": 255,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345681",
+          "landed_at": "2026-08-17",
+          "kind": "pr",
+          "number": 7,
+          "final": false,
+          "grade": null,
+          "mode": "unattributed"
+        },
+        {
+          "week": 25,
+          "lines": 40,
+          "ai": false,
+          "witnessed": true,
+          "evidence": "machine_checked",
+          "reverted": false,
+          "repository": "github:812345680",
+          "landed_at": null,
+          "kind": "pr",
+          "number": 12,
+          "final": false,
+          "grade": null,
+          "mode": "unattributed"
+        }
+      ],
+      "witness_counts": {
+        "W2": 16,
+        "W1": 4
+      },
+      "witness_unknown": 0,
+      "languages": [
+        {
+          "name": "typescript",
+          "share": 0.7073,
+          "files": 29
+        },
+        {
+          "name": "python",
+          "share": 0.2195,
+          "files": 9
+        },
+        {
+          "name": "java",
+          "share": 0.0488,
+          "files": 2
+        },
+        {
+          "name": "sql",
+          "share": 0.0244,
+          "files": 1
+        }
+      ],
+      "kinds": [
+        {
+          "name": "code",
+          "share": 0.6098,
+          "files": 25
+        },
+        {
+          "name": "tests",
+          "share": 0.2927,
+          "files": 12
+        },
+        {
+          "name": "config",
+          "share": 0.0488,
+          "files": 2
+        },
+        {
+          "name": "docs",
+          "share": 0.0244,
+          "files": 1
+        },
+        {
+          "name": "migrations",
+          "share": 0.0244,
+          "files": 1
+        }
+      ],
+      "agents": [],
+      "context": {
+        "repositories": 4,
+        "with_review": 4,
+        "with_ci": 4
+      },
+      "witness_gap": {
+        "excluded_episodes": 0,
+        "excluded_mass": 0.0,
+        "repositories": 4,
+        "repositories_without_ci": 0,
+        "excluded_in_repositories_without_ci": 0
+      },
+      "kind_counts": {
+        "pr": 20
+      },
+      "evidence_counts": {
+        "accepted_by_other": 2,
+        "machine_checked": 18,
+        "no_ci": 0,
+        "author_only": 0,
+        "unknown": 0
+      },
+      "merger_unrecorded": 0,
+      "mode_counts": {
+        "assist": 0,
+        "delegate": 0,
+        "unattributed": 20
+      },
+      "n_with_ai": 0,
+      "n_episodes": 20,
+      "domains": {
+        "version": "areas-1.0",
+        "items": [
+          {
+            "area": "backend_apis",
+            "pieces": 3,
+            "checked_by_ci": 3,
+            "reverted": 0,
+            "last_week": "2026-08-17"
+          },
+          {
+            "area": "data_sql",
+            "pieces": 2,
+            "checked_by_ci": 2,
+            "reverted": 0,
+            "last_week": "2026-07-06"
+          },
+          {
+            "area": "infra_ci",
+            "pieces": 1,
+            "checked_by_ci": 1,
+            "reverted": 0,
+            "last_week": "2026-07-06"
+          },
+          {
+            "area": "frontend",
+            "pieces": 4,
+            "checked_by_ci": 4,
+            "reverted": 0,
+            "last_week": "2026-08-17"
+          }
+        ]
+      },
+      "security": {
+        "collected": false
+      }
+    },
+    "agents": {
+      "weeks": [
+        {
+          "week_start": "2026-02-23",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-03-02",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-03-09",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-03-16",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-03-23",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-03-30",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-04-06",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-04-13",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-04-20",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-04-27",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-05-04",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-05-11",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-05-18",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-05-25",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-06-01",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-06-08",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-06-15",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-06-22",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-06-29",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-07-06",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-07-13",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-07-20",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-07-27",
+          "sessions": 0,
+          "live": 0
+        },
+        {
+          "week_start": "2026-08-03",
+          "sessions": 7,
+          "live": 0
+        },
+        {
+          "week_start": "2026-08-10",
+          "sessions": 5,
+          "live": 0
+        },
+        {
+          "week_start": "2026-08-17",
+          "sessions": 0,
+          "live": 0
+        }
+      ],
+      "n_sessions": 12,
+      "n_live": 0,
+      "tools": [
+        {
+          "name": "Bash",
+          "calls": 144
+        },
+        {
+          "name": "Read",
+          "calls": 108
+        },
+        {
+          "name": "Edit",
+          "calls": 60
+        }
+      ],
+      "mcp_tools_max": 1,
+      "with_project_instructions": 12,
+      "skill_calls": 0,
+      "median_iterations": 12,
+      "median_prompts": 11,
+      "by_agent": [
+        {
+          "agent": "claude_code",
+          "n_sessions": 9,
+          "last_session_at": "2026-08-13T10:00:00+00:00"
+        },
+        {
+          "agent": "codex",
+          "n_sessions": 3,
+          "last_session_at": "2026-08-14T10:00:00+00:00"
+        }
+      ]
+    },
+    "witness_mix": {
+      "W1": 0.2037,
+      "W2": 0.7963
+    },
+    "carrier_mix": {
+      "pr": 1.0
+    },
+    "ai_attribution_mix": {
+      "none": 1.0
+    },
+    "bridge_share": 0.0,
+    "weekly_grid": [
+      {
+        "week_start": "2026-06-22",
+        "episodes": 2,
+        "y1": 2,
+        "y0": 0,
+        "pending": 0
+      },
+      {
+        "week_start": "2026-06-29",
+        "episodes": 2,
+        "y1": 2,
+        "y0": 0,
+        "pending": 0
+      },
+      {
+        "week_start": "2026-07-06",
+        "episodes": 2,
+        "y1": 1,
+        "y0": 1,
+        "pending": 0
+      },
+      {
+        "week_start": "2026-07-13",
+        "episodes": 4,
+        "y1": 3,
+        "y0": 1,
+        "pending": 0
+      },
+      {
+        "week_start": "2026-07-20",
+        "episodes": 1,
+        "y1": 1,
+        "y0": 0,
+        "pending": 0
+      },
+      {
+        "week_start": "2026-07-27",
+        "episodes": 2,
+        "y1": 1,
+        "y0": 0,
+        "pending": 1
+      },
+      {
+        "week_start": "2026-08-03",
+        "episodes": 2,
+        "y1": 2,
+        "y0": 0,
+        "pending": 0
+      },
+      {
+        "week_start": "2026-08-10",
+        "episodes": 3,
+        "y1": 1,
+        "y0": 1,
+        "pending": 1
+      },
+      {
+        "week_start": "2026-08-17",
+        "episodes": 2,
+        "y1": 0,
+        "y0": 0,
+        "pending": 2
+      }
+    ],
+    "claims": {
+      "decisions_by_others": {
+        "key": "decisions_by_others",
+        "unit": "prs_decided_by_others",
+        "n_observations": 2,
+        "n_backfilled": 2,
+        "n_without_context": 0,
+        "proven": false,
+        "value": null,
+        "ci90": null,
+        "threshold": "at least 5 pull requests decided by other people, 90 % interval no wider than 30 points",
+        "measured_ci90_pp": null,
+        "blocked_by": "min_observations",
+        "progress": {
+          "have": 2,
+          "need": 45,
+          "unit": "pull requests decided by other people",
+          "approximate": true
+        },
+        "preliminary": null,
+        "evidence_class": "carrier",
+        "definition_version": "R-7.0"
+      }
+    },
+    "claims_proven": 0,
+    "claims_total": 1,
+    "habits": {
+      "sessions_read": 12,
+      "traces": {
+        "plan_before_edit": {
+          "opportunities": 12,
+          "hits": 6,
+          "sessions": 12
+        },
+        "names_files": {
+          "opportunities": 48,
+          "hits": 30,
+          "sessions": 12
+        },
+        "diff_before_commit": {
+          "opportunities": 4,
+          "hits": 4,
+          "sessions": 4
+        },
+        "located_corrections": {
+          "opportunities": 24,
+          "hits": 12,
+          "sessions": 12
+        }
+      },
+      "editor": {
+        "rules_version": "ed-1.0",
+        "accepted": 5,
+        "read_before_accepting": 2,
+        "changed_before_keeping": 2
+      }
+    },
+    "work_mode": "mixed",
+    "headline_claim": null,
+    "telemetry_days": 6,
+    "context_breadth": {
+      "projects": 2,
+      "label": "measured across 2 repositories"
+    },
+    "practice_index": {
+      "rules_version": "pi-1.7",
+      "state": "preliminary",
+      "value": 73,
+      "ci90": {
+        "lo": 66,
+        "hi": 80
+      },
+      "level": "Expert",
+      "strengths": [
+        "gh_green_before_merge",
+        "memory_alive"
+      ],
+      "next_step": "plan_complex",
+      "n_sessions": 12,
+      "min_sessions": 20,
+      "n_landings": 15,
+      "min_landings": 20,
+      "n_days": 22,
+      "min_days": 7,
+      "n_items": 15,
+      "min_items": 4,
+      "source": "both",
+      "n_landings_ai": 0,
+      "groups": {
+        "security": 0.6853,
+        "verification": 0.7052,
+        "setup": 0.6912,
+        "environment": 0.9286,
+        "communication": 0.6413
+      },
+      "items": {
+        "security_review": {
+          "group": "security",
+          "opportunities": 9,
+          "hits": 3,
+          "share": 0.3636,
+          "in_index": true
+        },
+        "no_secrets": {
+          "group": "security",
+          "opportunities": 24,
+          "hits": 24,
+          "share": 0.9615,
+          "in_index": true
+        },
+        "permissions_on": {
+          "group": "security",
+          "opportunities": 24,
+          "hits": 18,
+          "share": 0.7308,
+          "in_index": true
+        },
+        "tests_after_edit": {
+          "group": "verification",
+          "opportunities": 12,
+          "hits": 8,
+          "share": 0.6429,
+          "in_index": true
+        },
+        "tests_with_code": {
+          "group": "verification",
+          "opportunities": 12,
+          "hits": 6,
+          "share": 0.5,
+          "in_index": true
+        },
+        "saw_diff_before_commit": {
+          "group": "verification",
+          "opportunities": 29,
+          "hits": 20,
+          "share": 0.6774,
+          "in_index": true
+        },
+        "explore_before_edit": {
+          "group": "setup",
+          "opportunities": 12,
+          "hits": 12,
+          "share": 0.9286,
+          "in_index": false
+        },
+        "plan_complex": {
+          "group": "setup",
+          "opportunities": 12,
+          "hits": 6,
+          "share": 0.5,
+          "in_index": true
+        },
+        "memory_alive": {
+          "group": "environment",
+          "opportunities": 12,
+          "hits": 12,
+          "share": 0.9286,
+          "in_index": true
+        },
+        "code_stands_14d": {
+          "group": "environment",
+          "opportunities": 1,
+          "hits": 0,
+          "share": null,
+          "in_index": true
+        },
+        "gh_tests_with_code": {
+          "group": "verification",
+          "opportunities": 15,
+          "hits": 12,
+          "share": 0.7647,
+          "in_index": true
+        },
+        "gh_green_before_merge": {
+          "group": "verification",
+          "opportunities": 15,
+          "hits": 15,
+          "share": 0.9412,
+          "in_index": true
+        },
+        "gh_small_changes": {
+          "group": "setup",
+          "opportunities": 15,
+          "hits": 14,
+          "share": 0.8824,
+          "in_index": true
+        },
+        "clear_goal": {
+          "group": "communication",
+          "opportunities": 12,
+          "hits": 9,
+          "share": 0.7143,
+          "in_index": true
+        },
+        "one_task": {
+          "group": "communication",
+          "opportunities": 12,
+          "hits": 12,
+          "share": 0.9286,
+          "in_index": false
+        },
+        "gives_context": {
+          "group": "communication",
+          "opportunities": 24,
+          "hits": 18,
+          "share": 0.7308,
+          "in_index": true
+        },
+        "located_corrections": {
+          "group": "communication",
+          "opportunities": 24,
+          "hits": 12,
+          "share": 0.5,
+          "in_index": true
+        },
+        "names_files": {
+          "group": "communication",
+          "opportunities": 48,
+          "hits": 30,
+          "share": 0.62,
+          "in_index": true
+        }
+      },
+      "delta_7d": 3,
+      "delta_reason": "clear_goal",
+      "agents": {
+        "claude_code": 9,
+        "codex": 3
+      },
+      "recomputed_with": null
+    }
+  },
+  "metadata_collected": [
+    "PR identifiers and statuses",
+    "commit hashes",
+    "CI statuses",
+    "event timestamps",
+    "changed file paths"
+  ]
+}

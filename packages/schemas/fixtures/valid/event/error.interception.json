@@ -1,0 +1,38 @@
+{
+  "event_id": "0191b7a1-0003-7aaa-8bbb-000000000003",
+  "schema_version": "2.2",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "source": "wedge_cursor",
+  "origin": "live",
+  "occurred_at": "2026-08-02T08:00:00Z",
+  "sent_at": "2026-08-02T08:00:01Z",
+  "tool": {
+    "name": "cursor",
+    "version": "1.4.2"
+  },
+  "model": {
+    "family": "gpt",
+    "name": "gpt-5",
+    "generation_tag": "2026H2"
+  },
+  "type": "error.interception",
+  "payload": {
+    "draft_hash": "3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a",
+    "fix_hash": "9f8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6c5b4a39281706f5e4d3c2b1a0",
+    "t_since_accept_ms": 5400000,
+    "kc_to_fix": 0.72,
+    "kc_algo_version": "myers-token-1.0",
+    "size_fix": 640,
+    "same_region": true,
+    "carrier_hint": {
+      "provider": "github",
+      "repo_id": 812345678,
+      "branch": "feat/PROJ-113-retry",
+      "pr_number": 42
+    },
+    "defect_confirmed_by": null,
+    "defect_kind": null,
+    "fixed_in_same_episode": null,
+    "ifix_candidate": null
+  }
+}

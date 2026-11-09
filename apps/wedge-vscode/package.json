@@ -1,0 +1,103 @@
+{
+  "name": "passport",
+  "displayName": "Deigma",
+  "version": "0.3.0",
+  "description": "Shows whether you review AI's code before accepting it: whether you read and change a suggestion first. Never your code.",
+  "type": "module",
+  "publisher": "deigma",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "deigma.connect",
+        "title": "Deigma: Connect"
+      },
+      {
+        "command": "deigma.disconnect",
+        "title": "Deigma: Disconnect"
+      },
+      {
+        "command": "deigma.pause",
+        "title": "Deigma: pause collection"
+      },
+      {
+        "command": "deigma.resume",
+        "title": "Deigma: resume collection"
+      },
+      {
+        "command": "deigma.status",
+        "title": "Deigma: what it reads"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "deigma.connect",
+          "when": "!deigma.connected"
+        },
+        {
+          "command": "deigma.disconnect",
+          "when": "deigma.connected"
+        },
+        {
+          "command": "deigma.pause",
+          "when": "deigma.connected"
+        },
+        {
+          "command": "deigma.resume",
+          "when": "deigma.connected"
+        },
+        {
+          "command": "deigma.status",
+          "when": "deigma.connected"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Deigma",
+      "properties": {
+        "deigma.apiBaseUrl": {
+          "type": "string",
+          "default": "https://api.deigma.net",
+          "description": "Where the counts are sent."
+        },
+        "deigma.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Read how AI suggestions are reviewed: counts and timings. Never your code."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "build": "esbuild src/extension.ts --bundle --platform=node --format=cjs --external:vscode --outfile=dist/extension.js",
+    "package": "npm run build && node build-vsix.mjs both",
+    "vscode:prepublish": "npm run build",
+    "package:vscode": "npm run build && node build-vsix.mjs vscode",
+    "package:openvsx": "npm run build && node build-vsix.mjs openvsx"
+  },
+  "devDependencies": {
+    "@mentat/schemas": "workspace:*",
+    "@mentat/wedge-core": "workspace:*",
+    "esbuild": "0.28.2"
+  },
+  "dependencies": {},
+  "license": "UNLICENSED",
+  "homepage": "https://deigma.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deigmahq/deigma.git",
+    "directory": "apps/wedge-vscode"
+  },
+  "categories": [
+    "Other"
+  ]
+}

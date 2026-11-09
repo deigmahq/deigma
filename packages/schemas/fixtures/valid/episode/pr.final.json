@@ -1,0 +1,73 @@
+{
+  "episode_id": "6f1d2c3b-4a5e-5f60-8a1b-2c3d4e5f6a7b",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "carrier": {
+    "provider": "github",
+    "kind": "pr",
+    "repo_id": 812345678,
+    "pr_number": 42
+  },
+  "carrier_key": "github:812345678:pr:42",
+  "project_cluster_key": "github:812345678",
+  "task_class": {
+    "carrier_type": "pr",
+    "size_bucket": "M",
+    "domain": "TypeScript",
+    "key": "pr:M:TypeScript:unattributed",
+    "classifier_version": "cls-2.0",
+    "mode": "unattributed"
+  },
+  "status": "final",
+  "opened_at": "2026-07-18T09:00:00Z",
+  "closed_at": "2026-07-21T14:03:12Z",
+  "merged": true,
+  "sub_episodes": [
+    {
+      "started_at": "2026-07-18T09:00:00Z",
+      "ended_at": "2026-07-21T14:03:12Z",
+      "n_events": 5,
+      "n_ai_events": 0
+    }
+  ],
+  "provisional_outcome": {
+    "y_lo": 3,
+    "y_hi": 3,
+    "decided_at": "2026-07-24T14:03:12Z",
+    "reason": "merged \u2227 ci_green_first_pass \u2227 no_rework"
+  },
+  "final_outcome": {
+    "y_lo": 3,
+    "y_hi": 3,
+    "decided_at": "2026-08-04T14:03:12Z",
+    "reason": "merged \u2227 ci_green_first_pass \u2227 no_rework"
+  },
+  "window_final_at": "2026-08-04T14:03:12Z",
+  "evidence": {
+    "ai_evidence": "none",
+    "n_carrier_events": 5,
+    "n_wedge_events": 0,
+    "ci_seen": true,
+    "ci_passed": true,
+    "ci_failed_after_merge": false,
+    "ci_failures_before_merge": 0,
+    "changes_requested_cycles": 1,
+    "reverted": false,
+    "lines_changed": 153,
+    "min_size_ok": true,
+    "n_backfilled_events": 0,
+    "reviewed_by_other": true,
+    "merged_by": "another_person",
+    "descriptors": {
+      "version": "desc.v1",
+      "n_files": 3,
+      "kinds": { "code": 0.6667, "tests": 0.3333 },
+      "languages": { "typescript": 1 }
+    },
+    "areas": { "version": "areas-1.0", "touched": ["backend_apis", "payments"] }
+  },
+  "e_definition_version": "E-1.0",
+  "updated_at": "2026-08-04T14:05:00Z",
+  "outcome_note": null,
+  "witness": "W2",
+  "evidence_class": "accepted_by_other"
+}

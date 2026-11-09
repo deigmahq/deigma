@@ -1,0 +1,43 @@
+{
+  "name": "deigma",
+  "version": "0.5.0",
+  "description": "Deigma reads what you shipped on GitHub and how you work with agents, and builds your track record. `npx deigma init` connects the terminal and reads your Claude Code and Codex history: counts, timings and tool names, never your prompts or code.",
+  "type": "module",
+  "bin": {
+    "deigma": "dist/deigma.js"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "start": "tsx src/main.ts",
+    "build": "node build.mjs",
+    "prepublishOnly": "node build.mjs"
+  },
+  "files": [
+    "dist/deigma.js",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "UNLICENSED",
+  "homepage": "https://deigma.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deigmahq/deigma.git",
+    "directory": "apps/wedge-cli"
+  },
+  "keywords": [
+    "ai",
+    "mcp",
+    "developer-tools",
+    "telemetry"
+  ],
+  "devDependencies": {
+    "@mentat/schemas": "workspace:*",
+    "@mentat/wedge-core": "workspace:*",
+    "@mentat/coach": "workspace:*",
+    "esbuild": "^0.25.0"
+  },
+  "dependencies": {}
+}

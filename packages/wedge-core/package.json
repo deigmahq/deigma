@@ -1,0 +1,19 @@
+{
+  "name": "@mentat/wedge-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared wedge logic: local-only feature extraction, secret scanning, PII scrubbing, the Kc ladder, the offline queue and the emit path. No IDE and no CLI concerns.",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@mentat/schemas": "workspace:*",
+    "zod": "4.4.3"
+  }
+}

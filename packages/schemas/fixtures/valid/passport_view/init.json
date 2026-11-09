@@ -1,0 +1,19 @@
+{
+  "status": "init",
+  "backfill": "running",
+  "metadata_collected": [
+    "PR identifiers and statuses",
+    "commit hashes",
+    "CI statuses",
+    "event timestamps",
+    "changed file paths"
+  ],
+  "backfill_progress": {
+    "phase": "shallow",
+    "days_covered": 30,
+    "days_total": 182,
+    "repositories_done": 2,
+    "repositories_total": 4,
+    "pulls_indexed": 11
+  }
+}

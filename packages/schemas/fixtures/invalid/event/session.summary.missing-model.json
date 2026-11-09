@@ -1,0 +1,58 @@
+{
+  "event_id": "0191b7a1-0001-7aaa-8bbb-000000000001",
+  "schema_version": "2.2",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "source": "wedge_cli",
+  "origin": "live",
+  "occurred_at": "2026-08-01T10:15:30.250Z",
+  "sent_at": "2026-08-01T10:15:31Z",
+  "tool": {
+    "name": "deigma-cli",
+    "version": "0.3.1"
+  },
+  "type": "session.summary",
+  "payload": {
+    "session_id": "s_01J4XYZ",
+    "duration_ms": 1830000,
+    "requests": 14,
+    "iterations": 5,
+    "tool_calls": {
+      "read_file": 22,
+      "edit_file": 9,
+      "run_tests": 3
+    },
+    "tokens_in": 48210,
+    "tokens_out": 9120,
+    "prompt_features": [
+      {
+        "h_struct": 3.21,
+        "content_mass": 0.72,
+        "length": 812,
+        "categories": [
+          "spec",
+          "constraints"
+        ]
+      },
+      {
+        "h_struct": 2.1,
+        "content_mass": 0.31,
+        "length": 140,
+        "categories": [
+          "followup"
+        ]
+      }
+    ],
+    "env_features": {
+      "e_definition_version": "E-1.0",
+      "mcp_tool_diversity": 0.6,
+      "mcp_tool_calls": 34,
+      "project_instructions_loaded": true,
+      "reusable_skill_calls": 2
+    },
+    "carrier_hint": {
+      "provider": "github",
+      "repo_id": 812345678,
+      "branch": "feat/ingest"
+    }
+  }
+}

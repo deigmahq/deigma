@@ -1,0 +1,22 @@
+{
+  "name": "deigma-client",
+  "private": true,
+  "description": "The Deigma client: what runs on your machine. Source available for review.",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=22.13 <23"
+  },
+  "scripts": {
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "test": "vitest run",
+    "build": "pnpm -r --if-present run build",
+    "deigma": "pnpm --filter deigma --silent build >/dev/null && node apps/wedge-cli/dist/deigma.js"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.1",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3",
+    "vitest": "4.1.10"
+  }
+}

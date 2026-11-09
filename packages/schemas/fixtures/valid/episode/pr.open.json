@@ -1,0 +1,54 @@
+{
+  "episode_id": "7a2e3d4c-5b6f-5071-9b2c-3d4e5f6a7b8c",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "carrier": {
+    "provider": "github",
+    "kind": "pr",
+    "repo_id": 812345678,
+    "pr_number": 51
+  },
+  "carrier_key": "github:812345678:pr:51",
+  "project_cluster_key": "github:812345678",
+  "task_class": {
+    "carrier_type": "pr",
+    "size_bucket": "S",
+    "domain": "TypeScript",
+    "key": "pr:S:TypeScript:unattributed",
+    "classifier_version": "cls-2.0",
+    "mode": "unattributed"
+  },
+  "status": "open",
+  "opened_at": "2026-08-15T11:30:00Z",
+  "closed_at": null,
+  "merged": false,
+  "sub_episodes": [
+    {
+      "started_at": "2026-08-15T11:30:00Z",
+      "ended_at": "2026-08-15T11:30:00Z",
+      "n_events": 1,
+      "n_ai_events": 0
+    }
+  ],
+  "provisional_outcome": null,
+  "final_outcome": null,
+  "window_final_at": null,
+  "evidence": {
+    "ai_evidence": "none",
+    "n_carrier_events": 1,
+    "n_wedge_events": 0,
+    "ci_seen": false,
+    "ci_passed": false,
+    "ci_failed_after_merge": false,
+    "ci_failures_before_merge": 0,
+    "changes_requested_cycles": 0,
+    "reverted": false,
+    "lines_changed": 12,
+    "min_size_ok": false,
+    "n_backfilled_events": 0,
+    "reviewed_by_other": true
+  },
+  "e_definition_version": "E-1.0",
+  "updated_at": "2026-08-15T11:31:00Z",
+  "outcome_note": "carrier open",
+  "witness": "W2"
+}

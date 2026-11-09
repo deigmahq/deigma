@@ -1,0 +1,16 @@
+{
+  "name": "@mentat/coach",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The speech rules of the Weekly Pulse and the coach: one implementation, used by the CLI (terminal) and by the API (email)",
+  "type": "module",
+  "sideEffects": false,
+  "exports": { ".": "./src/index.ts" },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@mentat/schemas": "workspace:*"
+  }
+}

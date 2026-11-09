@@ -1,0 +1,15 @@
+# What must NOT ship in the extension.
+#
+# Without this file `vsce package` takes the whole directory: sources, tests, tsconfig, the lot.
+# It was caught by the packager's own secret scan finding a token in a test — a synthetic one,
+# written as a fixture for our own scanner, but the finding was right about the shape of the
+# problem: the tests were being published at all.
+#
+# The extension is a single bundled file. Everything that produced it stays here.
+src/**
+test/**
+node_modules/**
+tsconfig*.json
+vitest.config.*
+*.map
+.vscodeignore

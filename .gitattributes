@@ -1,0 +1,2 @@
+# Line endings are normalised so fixtures stay byte-identical on every OS.
+* text=auto eol=lf

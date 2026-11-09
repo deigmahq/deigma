@@ -1,0 +1,103 @@
+{
+  "event_id": "5b0c2a51-7d3e-5a10-8e2f-6c1d9a0b4e77",
+  "schema_version": "2.5",
+  "user_id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+  "source": "wedge_cli",
+  "origin": "backfill",
+  "occurred_at": "2026-05-04T09:00:12Z",
+  "sent_at": "2026-10-10T12:00:00Z",
+  "tool": {
+    "name": "deigma-cli",
+    "version": "0.3.0"
+  },
+  "type": "session.summary",
+  "model": {
+    "family": "claude",
+    "name": "claude-opus-5",
+    "generation_tag": "claude-5"
+  },
+  "payload": {
+    "session_id": "0b6f0c1e-1111-4a2b-9c3d-000000000001",
+    "duration_ms": 538000,
+    "requests": 6,
+    "human_prompts": 4,
+    "iterations": 1,
+    "tool_calls": {
+      "Edit": 1,
+      "Bash": 4,
+      "Write": 1
+    },
+    "tokens_in": 15,
+    "tokens_out": 25,
+    "prompt_features": [],
+    "env_features": {
+      "e_definition_version": "E-1.1",
+      "mcp_tool_diversity": 0,
+      "mcp_tool_count": 0,
+      "mcp_tool_calls": 0,
+      "project_instructions_loaded": false,
+      "reusable_skill_calls": 0,
+      "project_hash": "a1b2c3d4e5f6",
+      "components_configured": [
+        "hook"
+      ],
+      "components_used": [
+        "hook"
+      ]
+    },
+    "verification_runs": {
+      "test": 2,
+      "build": 0,
+      "lint": 0,
+      "review": 0
+    },
+    "carrier_hint": {
+      "provider": "github",
+      "repo_id": 123456,
+      "pr_number": 42
+    },
+    "reader_version": "cc-reader-2",
+    "transcript_id": "/home/dev/repo/0b6f0c1e.jsonl",
+    "suggestions_accepted": 1,
+    "steering": {
+      "interrupts": 2,
+      "followups_after_interrupt": 1
+    },
+    "commit_checks": {
+      "commits": 3,
+      "verified_after_last_edit": 2
+    },
+    "prompt_history": {
+      "rules_version": "ph-1.0",
+      "typed_prompts": 4,
+      "slash_commands": [
+        {
+          "name": "clear",
+          "count": 1
+        },
+        {
+          "name": "other",
+          "count": 2
+        }
+      ],
+      "shell_commands": 1,
+      "pastes": {
+        "text_small": 1,
+        "text_medium": 0,
+        "text_large": 1,
+        "text_unknown": 0,
+        "images": 1
+      },
+      "prompt_length": {
+        "short": 2,
+        "medium": 1,
+        "long": 1
+      },
+      "gap_seconds": {
+        "p50": 70,
+        "p90": 300
+      },
+      "corrective_followups": 1
+    }
+  }
+}

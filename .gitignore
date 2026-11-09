@@ -1,0 +1,13 @@
+node_modules/
+.pnpm-store/
+
+# Build output: the CLI bundle, the extension bundle and its package.
+dist/
+*.vsix
+*.tsbuildinfo
+
+# Never commit a local environment, and keep editor noise out.
+.env
+.env.*
+.DS_Store
+*.log

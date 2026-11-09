@@ -1,0 +1,7 @@
+# The workspace is everything under apps/ and packages/. esbuild's install script only verifies
+# its platform binary; it is allowed explicitly (pnpm blocks lifecycle scripts by default).
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  esbuild: true

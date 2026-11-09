@@ -1,0 +1,15 @@
+Copyright (c) 2026 Deigma (https://deigma.net). All rights reserved.
+
+This repository is published so that anyone can read what the Deigma client reads on a person's
+machine and what it sends. You may read this source, and build and run it on your own machine to
+check what it does.
+
+No other right is granted. Without written permission you may not copy, modify, merge, publish,
+distribute, sublicense or sell this software or any part of it, or use it, in whole or in part, to
+build or train another product or service.
+
+Using the published `deigma` package and the Deigma editor extension is governed by the terms at
+https://deigma.net/terms.
+
+GitHub's Terms of Service let anyone view and fork a public repository on GitHub. A fork grants
+none of the rights withheld above.

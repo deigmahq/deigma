@@ -1,0 +1,19 @@
+{
+  "event_id": "0191b7a1-0004-7aaa-8bbb-000000000004",
+  "schema_version": "2.2",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "source": "wedge_vscode",
+  "origin": "live",
+  "occurred_at": "2026-08-02T08:05:00Z",
+  "sent_at": "2026-08-02T08:05:00Z",
+  "tool": {
+    "name": "vscode",
+    "version": "1.103.0"
+  },
+  "type": "wedge.status",
+  "payload": {
+    "kind": "heartbeat",
+    "wedge_version": "0.3.1",
+    "error_code": null
+  }
+}

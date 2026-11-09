@@ -1,0 +1,46 @@
+{
+  "event_id": "0191b7a0-6d4f-7e3b-8a21-4c3d2e1f0a92",
+  "schema_version": "2.2",
+  "user_id": "3f2b1e4c-8a9d-4c6e-9b1a-2d3e4f5a6b7c",
+  "source": "connector_github",
+  "origin": "live",
+  "occurred_at": "2026-07-23T09:41:00+02:00",
+  "sent_at": "2026-07-23T09:41:02+02:00",
+  "tool": {
+    "name": "github-app",
+    "version": "1.0.0"
+  },
+  "type": "carrier.event",
+  "model": {
+    "family": "n/a",
+    "name": "n/a",
+    "generation_tag": "2026H2"
+  },
+  "payload": {
+    "kind": "reverted",
+    "carrier": {
+      "provider": "github",
+      "kind": "pr",
+      "repo_id": 812345678,
+      "pr_number": 42
+    },
+    "actor_github_user_id": 5551212,
+    "actor_is_owner": true,
+    "commit": null,
+    "pr": {
+      "head_sha": "9fceb02",
+      "base_ref": "main",
+      "additions": 120,
+      "deletions": 33,
+      "changed_files": 4,
+      "changed_paths": [
+        "src/api/ingest.ts"
+      ],
+      "language": null,
+      "ticket_ref": "PROJ-118"
+    },
+    "merge_method": null,
+    "ci_check_name": null,
+    "reverted_by_pr_number": 47
+  }
+}

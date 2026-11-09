@@ -1,0 +1,120 @@
+{
+  "event_id": "6c1d3b62-8e4f-5b21-9f30-7d2e0b1c5f88",
+  "schema_version": "2.10",
+  "user_id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+  "source": "wedge_cli",
+  "origin": "backfill",
+  "occurred_at": "2026-10-01T10:00:00Z",
+  "sent_at": "2026-10-20T12:00:00Z",
+  "tool": {
+    "name": "deigma-cli",
+    "version": "0.1.0"
+  },
+  "type": "session.summary",
+  "model": {
+    "family": "gpt",
+    "name": "gpt-5.5-sol",
+    "generation_tag": "gpt-5.5"
+  },
+  "payload": {
+    "session_id": "codex-0199aaaa-bbbb-7ccc-8ddd-eeeeeeeeeeee",
+    "duration_ms": 420000,
+    "requests": 13,
+    "human_prompts": 2,
+    "iterations": 0,
+    "tool_calls": {
+      "exec": 13
+    },
+    "tokens_in": 130,
+    "tokens_out": 65,
+    "prompt_features": [],
+    "env_features": {
+      "e_definition_version": "E-1.0",
+      "mcp_tool_diversity": 0,
+      "mcp_tool_count": 0,
+      "mcp_tool_calls": 0,
+      "project_instructions_loaded": false,
+      "reusable_skill_calls": 0
+    },
+    "verification_runs": {
+      "test": 2,
+      "build": 0,
+      "lint": 0,
+      "review": 0
+    },
+    "reader_version": "codex-reader-1",
+    "transcript_id": "0199aaaa-bbbb-7ccc-8ddd-eeeeeeeeeeee",
+    "suggestions_accepted": null,
+    "steering": null,
+    "commit_checks": null,
+    "prompt_history": null,
+    "habits": {
+      "rules_version": "hb-2.3",
+      "names_files": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "plan_before_edit": {
+        "opportunities": 1,
+        "hits": 0
+      },
+      "diff_before_commit": {
+        "opportunities": 2,
+        "hits": 0
+      },
+      "located_corrections": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "security_review": null,
+      "dependency_audit": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "no_secrets": null,
+      "permissions_on": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "risky_confirmed": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "tests_after_edit": {
+        "opportunities": 1,
+        "hits": 0
+      },
+      "tests_with_code": {
+        "opportunities": 2,
+        "hits": 1
+      },
+      "saw_diff_before_commit": {
+        "opportunities": 2,
+        "hits": 1
+      },
+      "independent_review": null,
+      "explore_before_edit": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "plan_complex": {
+        "opportunities": 1,
+        "hits": 0
+      },
+      "memory_alive": null,
+      "clear_goal": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "one_task": {
+        "opportunities": 1,
+        "hits": 1
+      },
+      "gives_context": {
+        "opportunities": 2,
+        "hits": 2
+      }
+    },
+    "agent": "cursor"
+  }
+}
