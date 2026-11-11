@@ -97,13 +97,25 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 function pathPattern(paths: readonly string[]): RegExp | null {
   const unique = [...new Set(paths.filter((p) => p.length > 1))].sort((a, b) => b.length - a.length);
   if (unique.length === 0) return null;
-  return new RegExp(`(?<![A-Za-z0-9._~-])(?:${unique.map(escapeRegExp).join("|")})(?![A-Za-z0-9._-])`, "g");
+  // A Windows path names the same folder in any case (NTFS), and Claude Code's own records spell
+  // one cwd as both C:\ and c:\: there the match ignores case.
+  const flags = unique.some((p) => WINDOWS_DRIVE.test(p)) ? "gi" : "g";
+  return new RegExp(`(?<![A-Za-z0-9._~-])(?:${unique.map(escapeRegExp).join("|")})(?![A-Za-z0-9._-])`, flags);
 }
 
-/** The ways a path is written: as given, and with forward slashes. */
+const WINDOWS_DRIVE = /^([A-Za-z]):[\\/]/;
+
+/** The ways a path is written: as given, and with forward slashes; a Windows path also as Git Bash
+ *  writes it (/c/Users/…), as WSL does (/mnt/c/Users/…) and with its backslashes doubled, as a
+ *  JSON or a shell string carries it. */
 function spellings(path: string): string[] {
   const trimmed = path.replace(/[\\/]+$/, "");
-  return [trimmed, trimmed.replace(/\\/g, "/")];
+  const forward = trimmed.replace(/\\/g, "/");
+  const drive = WINDOWS_DRIVE.exec(trimmed);
+  if (!drive) return [trimmed, forward];
+  const rest = forward.slice(2);
+  const letter = drive[1]!.toLowerCase();
+  return [trimmed, forward, trimmed.replace(/\\/g, "\\\\"), `/${letter}${rest}`, `/mnt/${letter}${rest}`];
 }
 
 export type Replacement = { text: string; replaceWith: string };

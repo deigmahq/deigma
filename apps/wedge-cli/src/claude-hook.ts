@@ -22,8 +22,10 @@
  *     parse is never rewritten — then nothing is added, and the proxy path still works;
  *   * `deigma logout` removes them.
  */
-import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+
+import { isWindows, stripBom, syncLauncherScript, writeFileAtomic } from "./platform";
 
 /** Recognises our entries; nothing a person writes by hand would contain it. */
 export const HOOK_MARK = "deigma-sync-hook";
@@ -41,13 +43,28 @@ export const STOP_STAMP = "stop-read.stamp";
 export const STOP_HOOK_COMMAND = `f="$HOME/.config/deigma/${STOP_STAMP}"; [ -n "$(find "$f" -mmin -${STOP_READ_EVERY_MINUTES} 2>/dev/null)" ] || { touch "$f" 2>/dev/null && (npx --yes deigma sync >/dev/null 2>&1 &); }; true # ${HOOK_MARK}`;
 export const STOP_HOOK_EVENT = "Stop";
 
-/** Every entry this module owns, by the Claude Code event it rides on. */
-const OUR_HOOKS: readonly { event: string; command: string }[] = [
-  { event: HOOK_EVENT, command: HOOK_COMMAND },
-  { event: STOP_HOOK_EVENT, command: STOP_HOOK_COMMAND },
-];
+type HookEntry = { type?: string; command?: string; args?: unknown; [k: string]: unknown };
 
-type HookEntry = { type?: string; command?: string; [k: string]: unknown };
+/**
+ * On Windows the entries are Claude Code's exec form: `node` with the launcher as its arguments
+ * (./platform). Claude Code runs a hook's text in Git Bash, or in PowerShell when Git is not
+ * installed, and the POSIX lines above are an error line after every turn in PowerShell; with
+ * `args` set no shell reads the entry at all (Claude Code 2.1.139+). `node` is a real program, the
+ * one npx itself needs, so it is on PATH wherever `npx deigma init` ran.
+ */
+export function hookEntry(event: string, platform: NodeJS.Platform = process.platform): HookEntry {
+  if (!isWindows(platform)) {
+    return { type: "command", command: event === STOP_HOOK_EVENT ? STOP_HOOK_COMMAND : HOOK_COMMAND };
+  }
+  const script =
+    event === STOP_HOOK_EVENT
+      ? syncLauncherScript({ stamp: STOP_STAMP, everyMinutes: STOP_READ_EVERY_MINUTES })
+      : syncLauncherScript();
+  return { type: "command", command: "node", args: ["-e", script, HOOK_MARK] };
+}
+
+/** Every event this module owns an entry on. */
+const OUR_EVENTS: readonly string[] = [HOOK_EVENT, STOP_HOOK_EVENT];
 type HookGroup = { matcher?: string; hooks?: HookEntry[]; [k: string]: unknown };
 type Settings = { hooks?: Record<string, HookGroup[] | unknown>; [k: string]: unknown };
 
@@ -55,8 +72,20 @@ export function claudeSettingsPath(home: string): string {
   return join(home, ".claude", "settings.json");
 }
 
+function oursEntry(h: HookEntry | undefined): boolean {
+  if (!h) return false;
+  const args = Array.isArray(h.args) ? h.args.map(String).join(" ") : "";
+  return `${String(h.command ?? "")} ${args}`.includes(HOOK_MARK);
+}
+
 function ours(group: HookGroup): boolean {
-  return Array.isArray(group.hooks) && group.hooks.some((h) => String(h?.command ?? "").includes(HOOK_MARK));
+  return Array.isArray(group.hooks) && group.hooks.some(oursEntry);
+}
+
+/** Ours, and exactly what this version writes for this platform. */
+function current(group: HookGroup, event: string, platform: NodeJS.Platform): boolean {
+  const want = JSON.stringify(hookEntry(event, platform));
+  return Array.isArray(group.hooks) && group.hooks.length === 1 && JSON.stringify(group.hooks[0]) === want;
 }
 
 /** The settings, or null when the file exists and is not a JSON object (then it is not ours to
@@ -65,11 +94,13 @@ function readSettings(path: string): Settings | null {
   let text: string;
   try {
     text = readFileSync(path, "utf8");
-  } catch {
-    return {};
+  } catch (err) {
+    // Only a file that is not there is an empty one. A file we could not read (locked, no access)
+    // is somebody's settings all the same, and writing `{}` plus our hooks over it would lose them.
+    return (err as NodeJS.ErrnoException).code === "ENOENT" ? {} : null;
   }
   try {
-    const parsed: unknown = JSON.parse(text);
+    const parsed: unknown = JSON.parse(stripBom(text).text);
     return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? (parsed as Settings) : null;
   } catch {
     return null;
@@ -78,9 +109,7 @@ function readSettings(path: string): Settings | null {
 
 function writeSettings(path: string, settings: Settings): void {
   mkdirSync(dirname(path), { recursive: true });
-  const tmp = `${path}.deigma-${process.pid}.tmp`;
-  writeFileSync(tmp, `${JSON.stringify(settings, null, 2)}\n`);
-  renameSync(tmp, path);
+  writeFileAtomic(path, `${JSON.stringify(settings, null, 2)}\n`);
 }
 
 export type HookOutcome = "added" | "present" | "unreadable_settings" | "failed";
@@ -103,25 +132,40 @@ export function stopHookInstalled(home: string): boolean | null {
   return settings === null ? null : ourEntryOn(settings, STOP_HOOK_EVENT);
 }
 
-/** Adds whichever of our entries is missing. Idempotent: a second `init` finds them and changes
- *  nothing; a machine set up before the Stop entry existed gets that one, and says "added". */
-export function installSyncHook(home: string): HookOutcome {
+/** Whether every entry of ours that is there is the one this version writes for this platform:
+ *  false when one was written by an older version or for another shell (a Windows machine set up
+ *  by 0.5, whose lines need `sh`), null when the settings cannot be read. No entry is not stale. */
+export function syncHookStale(home: string, platform: NodeJS.Platform = process.platform): boolean | null {
+  const settings = readSettings(claudeSettingsPath(home));
+  if (settings === null) return null;
+  const hooks = settings.hooks && typeof settings.hooks === "object" ? (settings.hooks as Record<string, unknown>) : {};
+  return OUR_EVENTS.some((event) => {
+    const groups = hooks[event];
+    return Array.isArray(groups) && (groups as HookGroup[]).some((g) => ours(g) && !current(g, event, platform));
+  });
+}
+
+/** Adds whichever of our entries is missing and rewrites ours where it is not what this version
+ *  writes for this platform. Idempotent: a second `init` finds them and changes nothing; a machine
+ *  set up before the Stop entry existed gets that one, and says "added". */
+export function installSyncHook(home: string, platform: NodeJS.Platform = process.platform): HookOutcome {
   try {
     const path = claudeSettingsPath(home);
     const settings = readSettings(path);
     if (settings === null) return "unreadable_settings";
     const hooks = settings.hooks && typeof settings.hooks === "object" && !Array.isArray(settings.hooks) ? settings.hooks : {};
     const next: Record<string, unknown> = { ...hooks };
-    let added = false;
-    for (const { event, command } of OUR_HOOKS) {
+    let changed = false;
+    for (const event of OUR_EVENTS) {
       const existing = hooks[event];
       if (existing !== undefined && !Array.isArray(existing)) return "unreadable_settings";
       const groups = (existing ?? []) as HookGroup[];
-      if (groups.some(ours)) continue;
-      next[event] = [...groups, { hooks: [{ type: "command", command }] }];
-      added = true;
+      if (groups.some((g) => current(g, event, platform))) continue;
+      // Ours but stale: replaced in place, every other group on the event kept as it was.
+      next[event] = [...groups.filter((g) => !ours(g)), { hooks: [hookEntry(event, platform)] }];
+      changed = true;
     }
-    if (!added) return "present";
+    if (!changed) return "present";
     writeSettings(path, { ...settings, hooks: next });
     return "added";
   } catch {
@@ -138,7 +182,7 @@ export function removeSyncHook(home: string): boolean {
     if (!settings || !hooks || typeof hooks !== "object" || Array.isArray(hooks)) return false;
     const nextHooks: Record<string, unknown> = { ...hooks };
     let removed = false;
-    for (const { event } of OUR_HOOKS) {
+    for (const event of OUR_EVENTS) {
       const groups = hooks[event];
       if (!Array.isArray(groups) || !(groups as HookGroup[]).some(ours)) continue;
       const kept = (groups as HookGroup[]).filter((g) => !ours(g));

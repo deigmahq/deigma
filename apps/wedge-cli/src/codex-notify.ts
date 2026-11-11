@@ -15,8 +15,10 @@
  *   * nothing is created where Codex is not installed (no $CODEX_HOME directory), `--no-hook` skips
  *     it, and a file we cannot read is never written.
  */
-import { existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
+
+import { BOM, isWindows, stripBom, syncLauncherScript, writeFileAtomic } from "./platform";
 
 /** Recognises our entry; nothing a person writes by hand would contain it. */
 export const NOTIFY_MARK = "deigma-sync-notify";
@@ -50,11 +52,20 @@ function tomlString(s: string): string {
   return JSON.stringify(s);
 }
 
+/** The program and arguments Codex starts. Codex starts `notify` itself, with no shell, and on
+ *  Windows there is no `sh` to start: there it is `node` with the launcher (./platform), which
+ *  reads the stamp in the same folder and never reads the JSON Codex appends. */
+export function notifyArgv(configDir: string, platform: NodeJS.Platform = process.platform): string[] {
+  return isWindows(platform)
+    ? ["node", "-e", syncLauncherScript({ stamp: NOTIFY_STAMP, everyMinutes: NOTIFY_THROTTLE_MINUTES }), NOTIFY_MARK]
+    : ["sh", "-c", notifyScript(configDir), NOTIFY_MARK];
+}
+
 /** The two lines `init` adds: the marker comment and the key. */
-export function notifyLines(configDir: string): string[] {
+export function notifyLines(configDir: string, platform: NodeJS.Platform = process.platform): string[] {
   return [
-    `# ${NOTIFY_MARK}: added by \`npx deigma init\` — reads ended Codex sessions; \`deigma logout\` removes it`,
-    `notify = [${["sh", "-c", notifyScript(configDir), NOTIFY_MARK].map(tomlString).join(", ")}]`,
+    `# ${NOTIFY_MARK}: added by \`npx deigma init\` — reads ended Codex sessions; \`npx deigma logout\` removes it`,
+    `notify = [${notifyArgv(configDir, platform).map(tomlString).join(", ")}]`,
   ];
 }
 
@@ -79,9 +90,7 @@ function readConfig(path: string): string | null | "missing" {
 
 function write(path: string, text: string): void {
   mkdirSync(dirname(path), { recursive: true });
-  const tmp = `${path}.deigma-${process.pid}.tmp`;
-  writeFileSync(tmp, text);
-  renameSync(tmp, path);
+  writeFileAtomic(path, text);
 }
 
 export type NotifyOutcome = "added" | "present" | "taken" | "no_codex" | "unreadable_config" | "failed";
@@ -93,7 +102,7 @@ export function codexNotifyState(codexDir: string): true | false | "taken" | nul
   const text = readConfig(codexConfigPath(codexDir));
   if (text === null) return null;
   if (text === "missing") return false;
-  const lines = text.split("\n");
+  const lines = stripBom(text).text.split("\n");
   const at = topLevelNotify(lines);
   if (at < 0) return false;
   return lines[at]!.includes(NOTIFY_MARK) ? true : "taken";
@@ -107,20 +116,43 @@ function isDir(p: string): boolean {
   }
 }
 
-/** Adds the entry once, only where `notify` is free. Idempotent. */
-export function installCodexNotify(codexDir: string, configDir: string): NotifyOutcome {
+/** Whether our entry is there but is not what this version writes for this platform (a Windows
+ *  machine set up by 0.5, whose entry needs `sh`), or null when there is nothing of ours to judge. */
+export function codexNotifyStale(codexDir: string, configDir: string, platform: NodeJS.Platform = process.platform): boolean | null {
+  if (!isDir(codexDir)) return null;
+  const text = readConfig(codexConfigPath(codexDir));
+  if (text === null || text === "missing") return null;
+  const lines = stripBom(text).text.split("\n");
+  const at = topLevelNotify(lines);
+  if (at < 0 || !lines[at]!.includes(NOTIFY_MARK)) return null;
+  return lines[at]!.replace(/\r$/, "") !== notifyLines(configDir, platform)[1];
+}
+
+/** Adds the entry once, only where `notify` is free, and rewrites ours where it is stale for this
+ *  platform. Idempotent. A leading byte-order mark stays the first thing in the file: a TOML lexer
+ *  skips it only there, and moved under our two lines it would break the file Codex reads. */
+export function installCodexNotify(codexDir: string, configDir: string, platform: NodeJS.Platform = process.platform): NotifyOutcome {
   try {
     if (!isDir(codexDir)) return "no_codex";
     const path = codexConfigPath(codexDir);
     const text = readConfig(path);
     if (text === null) return "unreadable_config";
-    const body = text === "missing" ? "" : text;
+    const { text: body, bom } = stripBom(text === "missing" ? "" : text);
     const lines = body.split("\n");
     const at = topLevelNotify(lines);
-    if (at >= 0) return lines[at]!.includes(NOTIFY_MARK) ? "present" : "taken";
+    const ourLines = notifyLines(configDir, platform);
+    if (at >= 0) {
+      if (!lines[at]!.includes(NOTIFY_MARK)) return "taken";
+      if (lines[at]!.replace(/\r$/, "") === ourLines[1]) return "present";
+      // Ours, written for another shell or by an older version: the key line is replaced in place.
+      const eol = lines[at]!.endsWith("\r") ? "\r" : "";
+      lines[at] = `${ourLines[1]}${eol}`;
+      write(path, `${bom ? BOM : ""}${lines.join("\n")}`);
+      return "added";
+    }
     // Top-level keys go before the first table: at the very top, the rest of the file untouched.
-    const head = notifyLines(configDir).join("\n");
-    write(path, body.length ? `${head}\n${body}` : `${head}\n`);
+    const head = ourLines.join("\n");
+    write(path, `${bom ? BOM : ""}${body.length ? `${head}\n${body}` : `${head}\n`}`);
     return "added";
   } catch {
     return "failed";
@@ -133,12 +165,13 @@ export function removeCodexNotify(codexDir: string): boolean {
     const path = codexConfigPath(codexDir);
     const text = readConfig(path);
     if (text === null || text === "missing") return false;
-    const lines = text.split("\n");
+    const { text: body, bom } = stripBom(text);
+    const lines = body.split("\n");
     const at = topLevelNotify(lines);
     if (at < 0 || !lines[at]!.includes(NOTIFY_MARK)) return false;
     const drop = new Set([at]);
     if (at > 0 && lines[at - 1]!.startsWith(`# ${NOTIFY_MARK}`)) drop.add(at - 1);
-    write(path, lines.filter((_, i) => !drop.has(i)).join("\n"));
+    write(path, `${bom ? BOM : ""}${lines.filter((_, i) => !drop.has(i)).join("\n")}`);
     return true;
   } catch {
     return false;

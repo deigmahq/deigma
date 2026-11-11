@@ -14,7 +14,7 @@
  * backfill: two emitters with two rules would make a claim measured in sessions mix two units.
  */
 
-import { spawn, type ChildProcessByStdio } from "node:child_process";
+import type { ChildProcessByStdio } from "node:child_process";
 import type { Readable, Writable } from "node:stream";
 import { randomUUID } from "node:crypto";
 
@@ -22,6 +22,7 @@ import type { Event } from "@mentat/schemas";
 
 import { SESSION_IDLE_GAP_HOURS } from "./measurement";
 import { closeSession, newSession, observe, type RpcFrame, type SessionState } from "./mcp-proxy";
+import { spawnResolved } from "./platform";
 
 export type ProxyIdentity = Parameters<typeof closeSession>[1];
 
@@ -38,6 +39,9 @@ export type ProxyRunDeps = {
   now?: () => number;
   gapHours?: number;
   onError?: (err: Error) => void;
+  /** The server could not be started at all. The proxy then stops reading the client at once:
+   *  idling on its pipe would leave the client waiting on a server that never came. */
+  onStartFailed?: (err: Error) => void;
 };
 
 /** Splits a byte stream into whole JSON-RPC lines, keeping a partial tail for the next chunk. */
@@ -61,7 +65,7 @@ export function lineReader(onLine: (line: string) => void): (chunk: Buffer | str
  * Returns the sessions it closed, which is what the tests assert on: a driver whose only evidence
  * is a side effect on a network is a driver nobody can check.
  */
-export async function runProxy(deps: ProxyRunDeps): Promise<{ sessions: number }> {
+export async function runProxy(deps: ProxyRunDeps): Promise<{ sessions: number; started?: boolean }> {
   const now = deps.now ?? (() => Date.now());
   const gapMs = (deps.gapHours ?? SESSION_IDLE_GAP_HOURS) * 3600_000;
   const stdout = deps.stdout ?? process.stdout;
@@ -69,13 +73,19 @@ export async function runProxy(deps: ProxyRunDeps): Promise<{ sessions: number }
 
   let child: ChildProcessByStdio<Writable, Readable, null>;
   try {
-    child = spawn(deps.command, deps.args, { stdio: ["pipe", "pipe", "inherit"] });
+    child = spawnResolved(deps.command, deps.args, { stdio: ["pipe", "pipe", "inherit"] }) as ChildProcessByStdio<
+      Writable,
+      Readable,
+      null
+    >;
   } catch (err) {
-    // We could not even start the tool. There is nothing to pass through, so this one is fatal —
-    // but it is the tool's failure to report, not a telemetry failure to hide.
-    throw err instanceof Error ? err : new Error(String(err));
+    // We could not even start the tool. There is nothing to pass through: it is the tool's failure
+    // to report, not a telemetry failure to hide.
+    deps.onStartFailed?.(err instanceof Error ? err : new Error(String(err)));
+    return { sessions: 0, started: false };
   }
 
+  let started = true;
   let state: SessionState | null = null;
   let closed = 0;
 
@@ -129,7 +139,13 @@ export async function runProxy(deps: ProxyRunDeps): Promise<{ sessions: number }
     const done = (): void => resolve();
     child.on("exit", done);
     child.on("error", (err) => {
-      deps.onError?.(err instanceof Error ? err : new Error(String(err)));
+      const e = err instanceof Error ? err : new Error(String(err));
+      if (child.pid === undefined) {
+        // Never started (ENOENT and the like): say so and stop listening to the client.
+        started = false;
+        stdin.off("data", toUpstream);
+        deps.onStartFailed?.(e);
+      } else deps.onError?.(e);
       done();
     });
   });
@@ -137,5 +153,5 @@ export async function runProxy(deps: ProxyRunDeps): Promise<{ sessions: number }
   // The tool exited, so the session ended with it — this is the close that actually happens in
   // practice, the idle gap being for a long-lived client that goes quiet.
   await flush(now());
-  return { sessions: closed };
+  return { sessions: closed, started };
 }

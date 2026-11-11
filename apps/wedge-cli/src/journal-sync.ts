@@ -39,7 +39,7 @@
  * Written only while signed in; the lock file keeps two runs from interleaving their writes.
  */
 import { randomUUID } from "node:crypto";
-import { closeSync, mkdirSync, openSync, readFileSync, renameSync, rmSync, statSync, writeFileSync, writeSync } from "node:fs";
+import { closeSync, mkdirSync, openSync, readFileSync, rmSync, statSync, writeFileSync, writeSync } from "node:fs";
 import { join } from "node:path";
 
 import type { Event } from "@mentat/schemas";
@@ -50,6 +50,7 @@ import type { Agent } from "@mentat/schemas";
 import { parseTranscript, READER_VERSION, sessionFiles, type ClaudeCodeSession } from "./journals/claude-code";
 import { CODEX_READER_VERSION, codexHome, codexSessionFiles, parseRollout } from "./journals/codex";
 import { DESCRIPTIVE_ON_WIRE, journalSessionEvent, readHistoryGroups, readerVersionOf } from "./local-backfill";
+import { writeFileAtomic } from "./platform";
 import { SESSION_IDLE_GAP_HOURS } from "./measurement";
 
 /** How often a running proxy starts another read. A session closes after a four-hour idle gap,
@@ -168,9 +169,7 @@ export function recordHistoryRead(configDir: string, userId: string, now: number
 export function saveSyncState(configDir: string, state: SyncState): void {
   mkdirSync(configDir, { recursive: true });
   const path = join(configDir, SYNC_FILES.state);
-  const tmp = `${path}.${process.pid}.tmp`;
-  writeFileSync(tmp, `${JSON.stringify(state)}\n`, { mode: 0o600 });
-  renameSync(tmp, path); // a reader never sees half a file
+  writeFileAtomic(path, `${JSON.stringify(state)}\n`, 0o600); // a reader never sees half a file
 }
 
 /** Whether a run is due: never ran, or the last one is older than the interval. A cheap read —

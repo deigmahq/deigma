@@ -1,6 +1,6 @@
 {
   "name": "deigma",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Deigma reads what you shipped on GitHub and how you work with agents, and builds your track record. `npx deigma init` connects the terminal and reads your Claude Code and Codex history: counts, timings and tool names, never your prompts or code.",
   "type": "module",
   "bin": {

@@ -24,6 +24,11 @@ anything is emitted, and a hit blocks the whole event rather than redacting part
 read and that no code was sent; `Deigma: what it reads` shows the same, with the secret scanner's
 count in the tooltip.
 
+## Source
+
+The code is public: [github.com/deigmahq/deigma](https://github.com/deigmahq/deigma). Read what
+it reads and what it sends before you add it.
+
 ## Connecting
 
 **Deigma: Connect** from the command palette, or a click on `Deigma: not connected` in the status

@@ -1,7 +1,7 @@
 {
   "name": "passport",
   "displayName": "Deigma",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Shows whether you review AI's code before accepting it: whether you read and change a suggestion first. Never your code.",
   "type": "module",
   "publisher": "deigma",

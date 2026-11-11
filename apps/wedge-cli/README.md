@@ -7,6 +7,9 @@ record. You choose when to share it. This is its terminal.
 npx deigma init
 ```
 
+It runs on Node.js 22 or newer (npx comes with it). In Windows PowerShell, type `npx.cmd deigma init`:
+PowerShell does not run npx's own script unless scripts are allowed there.
+
 That is the whole thing. Sign in from your terminal; your sessions go to your Deigma. It signs you
 in through GitHub's device flow (so it works over SSH, with no local browser needed), and then
 reads the history the agents on your machine have already written — how long sessions ran, how

@@ -82,18 +82,26 @@ export function sessionsReadText(sessions: number, byAgent?: Partial<Record<Agen
  */
 /** What `init` says about the hook (./claude-hook), one line, or nothing when it was declined. */
 export const HOOK_ADDED_LINE =
-  "New Claude Code sessions are read when they end, and twice a day while one stays open: added a SessionEnd and a Stop hook to ~/.claude/settings.json (`init --no-hook` skips them, `deigma logout` removes them).";
+  "New Claude Code sessions are read when they end, and twice a day while one stays open: added a SessionEnd and a Stop hook to ~/.claude/settings.json (`npx deigma init --no-hook` skips them, `npx deigma logout` removes them).";
 export const HOOK_PRESENT_LINE =
   "New Claude Code sessions are read when they end, and twice a day while one stays open (the hooks are in place).";
 /** What `status` says when it adds the Stop entry to a machine set up before it existed (0.4.1). */
 export const STOP_HOOK_ADDED_LINE =
-  "Added: an open Claude Code session is now read twice a day — one Stop hook in ~/.claude/settings.json (`deigma logout` removes it).";
+  "Added: an open Claude Code session is now read twice a day — one Stop hook in ~/.claude/settings.json (`npx deigma logout` removes it).";
+/** What `status` says when it rewrites entries of ours that an older version wrote, or wrote for
+ *  another shell (a Windows machine set up by 0.5, whose lines needed `sh`). */
+export const HOOKS_UPDATED_LINE =
+  "Updated: the Deigma entries in ~/.claude/settings.json and ~/.codex/config.toml now match this version (`npx deigma logout` removes them).";
+/** The proxy could not start the MCP server it was given. Said on stderr: stdout is the client's. */
+export function proxyStartFailedLine(command: string, message: string): string {
+  return `deigma: could not start \`${command}\`: ${message}`;
+}
 /** Decision 4: what `init` says about Codex's `notify` (./codex-notify), one line. */
 export const NOTIFY_ADDED_LINE =
-  "New Codex sessions are read as you work: added one notify entry to ~/.codex/config.toml, at most one read an hour (`init --no-hook` skips it, `deigma logout` removes it).";
+  "New Codex sessions are read as you work: added one notify entry to ~/.codex/config.toml, at most one read an hour (`npx deigma init --no-hook` skips it, `npx deigma logout` removes it).";
 export const NOTIFY_PRESENT_LINE = "New Codex sessions are read as you work (the notify entry is in place).";
 export const NOTIFY_TAKEN_LINE =
-  "Codex already runs its own notify program, so it was left as it is; new Codex sessions are read on `deigma sync`, `status` or `pulse`.";
+  "Codex already runs its own notify program, so it was left as it is; new Codex sessions are read on `npx deigma sync`, `status` or `pulse`.";
 
 export function connectedLines(input: {
   handle: string | null;
@@ -107,7 +115,7 @@ export function connectedLines(input: {
   const who = input.handle ? ` as @${input.handle}` : "";
   const hook = input.hook ?? "none";
   const proxy =
-    hook === "none" ? "New sessions count when run through `deigma proxy -- <your MCP server>`, or after `npx deigma sync`." : "";
+    hook === "none" ? "New sessions count when run through `npx deigma proxy -- <your MCP server>`, or after `npx deigma sync`." : "";
   const lines: string[] = [];
   const h = input.history;
   if (h.kind === "read") {
@@ -224,10 +232,10 @@ export function deviceReadLine(input: {
   if (input.hook === true && input.stopHook === true) {
     parts.push("new ones are read when a Claude Code session ends, and twice a day while one stays open");
   } else if (input.hook === true) parts.push("new ones are read when a Claude Code session ends");
-  else if (input.hook === false) parts.push("new ones are read on `deigma sync`, `status` or `pulse`");
+  else if (input.hook === false) parts.push("new ones are read on `npx deigma sync`, `status` or `pulse`");
   if (input.codexNotify === true) parts.push("new Codex sessions are read as you work, at most hourly");
   else if (input.codexNotify === "taken" || input.codexNotify === false) {
-    parts.push("new Codex sessions are read on `deigma sync`, `status` or `pulse`");
+    parts.push("new Codex sessions are read on `npx deigma sync`, `status` or `pulse`");
   }
   if (input.open > 0) parts.push(`${input.open} still open — a session counts after 4 h idle`);
   return `This machine: ${parts.join(" · ")}`;

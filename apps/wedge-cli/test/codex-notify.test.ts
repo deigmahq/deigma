@@ -41,8 +41,9 @@ const PERSONS_CONFIG = [
 describe("the notify entry init adds (decision 4)", () => {
   it("adds one entry to an absent config, once", () => {
     const d = codexDir();
-    expect(installCodexNotify(d, configDir())).toBe("added");
-    expect(installCodexNotify(d, configDir())).toBe("present");
+    const c = configDir();
+    expect(installCodexNotify(d, c)).toBe("added");
+    expect(installCodexNotify(d, c)).toBe("present");
     const text = read(d);
     expect(text.match(/^notify\s*=/gm)).toHaveLength(1);
     expect(text).toContain(NOTIFY_MARK);

@@ -50,7 +50,7 @@ function offerOpen(url: string): () => void {
           ? ["cmd", ["/c", "start", "", url]]
           : ["xdg-open", [url]];
     try {
-      const child = spawn(cmd, args, { stdio: "ignore", detached: true });
+      const child = spawn(cmd, args, { stdio: "ignore", detached: true, windowsHide: true });
       child.on("error", () => console.log(`Could not open a browser; open ${url} yourself.`));
       child.unref();
     } catch {

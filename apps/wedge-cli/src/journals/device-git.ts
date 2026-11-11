@@ -18,6 +18,8 @@ function git(dir: string, args: string[]): string | null {
       timeout: 10_000,
       maxBuffer: 32 * 1024 * 1024,
       stdio: ["ignore", "pipe", "ignore"],
+      // The sync runs without a console; without this every git it starts opens a window on Windows.
+      windowsHide: true,
     });
   } catch {
     return null;

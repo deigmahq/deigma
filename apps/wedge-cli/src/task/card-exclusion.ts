@@ -19,12 +19,13 @@
  * There is no marker file to look for: nothing in a task template may name Deigma, so the copy is
  * known by its address.
  */
-import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { repoAt } from "@mentat/wedge-core";
 
 import { checkoutRoot, isInFolder } from "./folder";
+import { writeFileAtomic } from "../platform";
 
 export const TASK_FOLDERS_FILE = "task-folders.json";
 
@@ -61,9 +62,7 @@ export function rememberTaskFolders(configDir: string, folders: readonly string[
   if (next.folders.length === known.folders.length && next.repos.join("\n") === known.repos.join("\n")) return;
   mkdirSync(configDir, { recursive: true });
   const path = join(configDir, TASK_FOLDERS_FILE);
-  const tmp = `${path}.${process.pid}.tmp`;
-  writeFileSync(tmp, `${JSON.stringify({ version: 1, ...next })}\n`, { mode: 0o600 });
-  renameSync(tmp, path); // a reader never sees half a file
+  writeFileAtomic(path, `${JSON.stringify({ version: 1, ...next })}\n`, 0o600); // a reader never sees half a file
 }
 
 const REPO = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;

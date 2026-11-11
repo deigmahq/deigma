@@ -46,7 +46,7 @@ describe("npx deigma init, after the code is approved (copy v4)", () => {
       webBaseUrl: WEB,
     });
     expect(lines).toEqual([
-      "Connected as @octocat. Read 42 Claude Code sessions. New sessions count when run through `deigma proxy -- <your MCP server>`, or after `npx deigma sync`.",
+      "Connected as @octocat. Read 42 Claude Code sessions. New sessions count when run through `npx deigma proxy -- <your MCP server>`, or after `npx deigma sync`.",
       "3 were in repositories Deigma doesn't read.",
       "See it: https://deigma.net/dashboard · Your week: npx deigma pulse",
     ]);
@@ -276,12 +276,12 @@ describe("the line status adds about this machine", () => {
       "This machine: sessions last read 3 h ago · new ones are read when a Claude Code session ends · 2 still open — a session counts after 4 h idle",
     );
     expect(dl({ lastRunAt: null, now, hook: false, open: 0 })).toBe(
-      "This machine: no session read from this machine yet · new ones are read on `deigma sync`, `status` or `pulse`",
+      "This machine: no session read from this machine yet · new ones are read on `npx deigma sync`, `status` or `pulse`",
     );
     for (const l of [dl({ lastRunAt: null, now, hook: false, open: 1 })]) expect(violations(l), l).toEqual([]);
     // Codex (decision 4): said only where Codex is on this machine.
     expect(dl({ lastRunAt: null, now, hook: true, open: 0, codexNotify: true })).toMatch(/new Codex sessions are read as you work, at most hourly$/);
-    expect(dl({ lastRunAt: null, now, hook: true, open: 0, codexNotify: "taken" })).toMatch(/new Codex sessions are read on `deigma sync`/);
+    expect(dl({ lastRunAt: null, now, hook: true, open: 0, codexNotify: "taken" })).toMatch(/new Codex sessions are read on `npx deigma sync`/);
     expect(dl({ lastRunAt: null, now, hook: true, open: 0, codexNotify: null })).not.toMatch(/Codex/);
   });
 });

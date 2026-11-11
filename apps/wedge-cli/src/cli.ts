@@ -25,7 +25,6 @@
 //                 out and in again must not change every project hash and tool hash this machine
 //                 ever sent. Written at the first sign-in, never before.
 //   queue.json    sessions not sent yet, with the user id they belong to.
-import { spawn } from "node:child_process";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -71,6 +70,8 @@ import {
   SIGNED_OUT_LINE,
   signedInLine,
   STOP_HOOK_ADDED_LINE,
+  HOOKS_UPDATED_LINE,
+  proxyStartFailedLine,
   USAGE_LINE,
   webBaseUrlFor,
   type HistoryOutcome,
@@ -78,8 +79,9 @@ import {
 import type { runProxy as RunProxy } from "./proxy-run";
 import type { ConnectedRepo } from "@mentat/wedge-core";
 import { renderStatus } from "./status";
-import { installSyncHook, removeSyncHook, stopHookInstalled, syncHookInstalled } from "./claude-hook";
-import { codexNotifyState, installCodexNotify, removeCodexNotify } from "./codex-notify";
+import { installSyncHook, removeSyncHook, stopHookInstalled, syncHookInstalled, syncHookStale } from "./claude-hook";
+import { codexNotifyStale, codexNotifyState, installCodexNotify, removeCodexNotify } from "./codex-notify";
+import { spawnResolved } from "./platform";
 import { codexHome } from "./journals/codex";
 import { knownTaskFolders, rememberTaskFolders, taskFolderCheck, taskRepositories } from "./task/card-exclusion";
 import { TASK_USAGE_LINES } from "./task/messages";
@@ -224,10 +226,18 @@ class Store {
  */
 export function spawnPassThrough(command: string, args: string[], err: (line: string) => void): Promise<number> {
   return new Promise<number>((resolve) => {
-    const child = spawn(command, args, { stdio: "inherit" });
+    let child: ReturnType<typeof spawnResolved>;
+    try {
+      child = spawnResolved(command, args, { stdio: "inherit" });
+    } catch (e) {
+      // Windows refuses some programs synchronously (EINVAL): the same answer as a missing one.
+      err(proxyStartFailedLine(command, e instanceof Error ? e.message : String(e)));
+      resolve(127);
+      return;
+    }
     child.on("exit", (code, signal) => resolve(code ?? (signal ? 1 : 0)));
     child.on("error", (e) => {
-      err(`${command}: ${e.message}`);
+      err(proxyStartFailedLine(command, e.message));
       resolve(127);
     });
   });
@@ -414,7 +424,12 @@ async function init(deps: CliDeps, store: Store, argv: string[]): Promise<number
   // A declined history stays declined: the sync then does not look one gap back either.
   if (s.user_id) {
     const choice = history.kind === "skipped" ? "declined" : history.kind === "unreachable" ? undefined : "read";
-    startLiveIfNew(deps.configDir, s.user_id, liveAt, choice ? { history: choice } : {});
+    try {
+      startLiveIfNew(deps.configDir, s.user_id, liveAt, choice ? { history: choice } : {});
+    } catch {
+      // The sync's own state could not be written (a file held open on Windows): the next sync
+      // starts it. Sign-in and history are done; init does not end on a stack trace for this.
+    }
   }
   // Solo review B2: without this, nothing read a new session unless `deigma proxy` wrapped an MCP
   // server, and the number stood still while the person worked (./claude-hook).
@@ -518,7 +533,7 @@ async function proxy(deps: CliDeps, store: Store, argv: string[]): Promise<numbe
   syncTimer.unref?.();
   let endedSaid = false;
   const inTaskFolder = taskFolderOfProxy(deps);
-  await deps.runProxy({
+  const ran = await deps.runProxy({
     command,
     args,
     identity: { userId: uid, salt: store.salt() },
@@ -536,10 +551,11 @@ async function proxy(deps: CliDeps, store: Store, argv: string[]): Promise<numbe
       }
     },
     onError: () => {},
+    onStartFailed: (e) => deps.err(proxyStartFailedLine(command, e.message)),
   });
   clearInterval(syncTimer);
   await flushed;
-  return 0;
+  return ran.started === false ? 127 : 0;
 }
 
 /**
@@ -752,6 +768,14 @@ export async function run(argv: string[], deps: CliDeps): Promise<number> {
       const home = deps.claudeSettingsHome;
       const upgraded =
         !!home && syncHookInstalled(home) === true && stopHookInstalled(home) === false && installSyncHook(home) === "added";
+      // Entries of ours that an older version wrote, or wrote for another shell (a Windows machine
+      // set up by 0.5, whose lines needed `sh`), are rewritten, and that is said in a line. Only
+      // where the person accepted them at `init`: nothing is added here that was declined.
+      const hooksRewritten = !upgraded && !!home && syncHookStale(home) === true && installSyncHook(home) === "added";
+      const codexRewritten =
+        !!deps.codexConfigHome &&
+        codexNotifyStale(deps.codexConfigHome, deps.configDir) === true &&
+        installCodexNotify(deps.codexConfigHome, deps.configDir) === "added";
       deps.out(
         deviceReadLine({
           lastRunAt: state.last_run_at,
@@ -763,6 +787,7 @@ export async function run(argv: string[], deps: CliDeps): Promise<number> {
         }),
       );
       if (upgraded) deps.out(STOP_HOOK_ADDED_LINE);
+      if (hooksRewritten || codexRewritten) deps.out(HOOKS_UPDATED_LINE);
     }
     return 0;
   }

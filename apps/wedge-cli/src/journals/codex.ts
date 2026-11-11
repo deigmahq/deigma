@@ -124,7 +124,7 @@ export function decompressZstd(file: string): string | null {
     // fall through to the binary: a decoder that refuses the file is not the last word
   }
   try {
-    const r = spawnSync("zstd", ["-dc", file], { maxBuffer: 1 << 30, stdio: ["ignore", "pipe", "ignore"] });
+    const r = spawnSync("zstd", ["-dc", file], { maxBuffer: 1 << 30, stdio: ["ignore", "pipe", "ignore"], windowsHide: true });
     if (r.status === 0 && r.stdout) return r.stdout.toString("utf8");
   } catch {
     // no binary
